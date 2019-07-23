@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -33,6 +35,12 @@ public class ElasticPolicyViewRepository implements PolicyViewRepository {
         IndexRequest indexRequest = new IndexRequest(INDEX_NAME,"policyview", policy.getNumber());
         indexRequest.source(jsonConverter.stringifyObject(policy), XContentType.JSON);
         elasticClientAdapter.index(indexRequest).blockingGet();
+    }
+
+    @Override
+    public void delete(String policyNumber) {
+        DeleteRequest deleteRequest = new DeleteRequest(INDEX_NAME,"policyview", policyNumber);
+        elasticClientAdapter.delete(deleteRequest);
     }
     
     @Override

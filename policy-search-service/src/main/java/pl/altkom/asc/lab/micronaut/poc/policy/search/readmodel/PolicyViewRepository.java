@@ -9,4 +9,5 @@ public interface PolicyViewRepository {
     Maybe<List<PolicyView>> findAll(FindPolicyQuery query);
 
     void save(PolicyView view);
+    void delete(String policyNumber);
 }

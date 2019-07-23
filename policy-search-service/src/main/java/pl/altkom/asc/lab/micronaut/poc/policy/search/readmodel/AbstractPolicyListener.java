@@ -13,4 +13,8 @@ abstract class AbstractPolicyListener {
         PolicyView view = PolicyViewAssembler.map(policy);
         policyViewRepository.save(view);
     }
+
+    void deletePolicyView(String policyNumber) {
+        policyViewRepository.delete(policyNumber);
+    }
 }

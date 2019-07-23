@@ -4,6 +4,8 @@ import io.reactivex.Maybe;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.ActionListener;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -39,6 +41,19 @@ public class ElasticClientAdapter {
                 }
             });
         });
+    }
+
+    Maybe<DeleteResponse> delete(DeleteRequest deleteRequest) {
+        return Maybe.create(sink -> restHighLevelClient.deleteAsync(deleteRequest, new ActionListener<DeleteResponse>() {
+            @Override
+            public void onResponse(DeleteResponse deleteResponse) {
+                sink.onSuccess(deleteResponse);
+            }
+            @Override
+            public void onFailure(Exception e) {
+                sink.onError(e);
+            }
+        }));
     }
 
     public Maybe<SearchResponse> search(SearchRequest searchRequest) {

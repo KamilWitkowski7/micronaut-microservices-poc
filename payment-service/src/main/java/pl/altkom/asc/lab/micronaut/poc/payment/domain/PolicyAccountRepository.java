@@ -19,6 +19,7 @@ public interface PolicyAccountRepository extends GenericRepository<PolicyAccount
     Optional<PolicyAccount> findByPolicyAccountNumber(String policyAccountNumber);
 
     PolicyAccount save(PolicyAccount policyAccount);
+    Void delete(Long id);
 
     Collection<PolicyAccount> findAll();
 }

@@ -5,12 +5,16 @@ import io.micronaut.configuration.kafka.annotation.KafkaKey;
 import io.micronaut.configuration.kafka.annotation.Topic;
 import pl.altkom.asc.lab.micronaut.poc.policy.service.api.v1.events.PolicyRegisteredEvent;
 import pl.altkom.asc.lab.micronaut.poc.policy.service.api.v1.events.PolicyTerminatedEvent;
+import pl.altkom.asc.lab.micronaut.poc.policy.service.api.v1.events.PolicyUnregisteredEvent;
 
 @KafkaClient
 public interface EventPublisher {
 
     @Topic("policy-registered")
     void policyRegisteredEvent(@KafkaKey String policyNumber, PolicyRegisteredEvent event);
+
+    @Topic("policy-unregistered")
+    void policyUnregisteredEvent(@KafkaKey String policyNumber, PolicyUnregisteredEvent event);
 
     @Topic("policy-terminated")
     void policyTerminatedEvent(@KafkaKey String policyNumber, PolicyTerminatedEvent event);
