@@ -8,6 +8,6 @@ import io.micronaut.data.model.*;
 @Repository
 public interface PolicyRepository extends GenericRepository<Policy,Long> {
     Optional<Policy> findByNumber(String number);
-
     Policy save(Policy policy);
+    Policy delete(Long id);
 }
